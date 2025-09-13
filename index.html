@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+    <meta charset="utf-8">
+    <title> Mi capsula del tiempo</title>
+      <script src="carta.js"></script>
+  </head>
+  <body>
+    <header class="he">
+      <nav class="nav">
+        <div class="di">
+
+        </div>
+        <div class="di3">
+      <a class="tam" class="a" href="#1">Mi capsula del tiempo</a>
+      <a class="tam" class="a" href="#2">Sueños y metas</a>
+      <a class="tam" class="a" href="#3">Momentos importantes</a>
+      <a class="tam" class="a" href="#4">Musica,series y tendencias</a>
+      <a class="tam" class="a" href="#5">Carta ha futuro</a>
+      </div>
+      </nav>
+    </header>
+    <main>
+          <center>
+      <section id="1" class="sec">
+        <h1>Mi capsula del tiempo</h1>
+      <p>Mi nombre es Erick Samuel Jaramillo Cuero nacido en toluca actualmente vivio en san crisitobal tecolit tengo 17 años me encuentro estudiando el cecytem plantel zinacantepec y esta es una carta para mi yo de futuro</p>
+          <img src="imagen/imagen.jfif" class="ima">
+        </section>
+        <section id="2" class="sec">
+          <h1>Sueños y metas</h1>
+          <p>mis sueños es poder viajar y conocer mas partes de mi pais y poder viajar a otros paises,mis metas es terminar la preparatoria en un años y poder entrar a una univercidad de gobierno o de
+          de paga para poder estudiar una licecitura y poder conseguir un empleo que me permita cumplir mis sueños</p>
+          <img src="imagen/descarga.jfif" class="img">
+          <img src="imagen/trabajo.jfif" class="img">
+          </section>
+          <section id="3" class="sec">
+            <h1>Momentos importantes</h1>
+            <p>uno de mis momentos importantes es cundo entre ha la secundaria despues de pandemia cunando recibi la noticia de que empece a sacar buneas
+               notas en mis materias, despues entrar ha la preparatoria y mantener mi promedio asi mismo cundo he viajado con mi familia me la paso muy padre con mi familia.</p>
+              <img src="imagen/familia.jfif" class="img">
+              <img src="imagen/notas.jfif" class="img">
+            </section>
+            <section id="4" class="sec">
+              <h1>Musica,series y tendencias</h1>
+              <p>Me gusta la musica de todos los generos como las de banda o norteñas,
+              Las sries que he visto es una popular como el juego del calamar, entre otras series asi mismo
+            las peliculas de tendencias </p>
+            <img src="imagen/musica.jfif" class="img">
+            <img src="imagen/peliculas.jfif" class="img">
+
+              </section>
+              <section class="futuro" id="5">
+                <article class="ar">
+
+                </article>
+
+      <form method="post">
+        <p id="carta"></p>
+  <label>Carta a mi yo del futuro</label>
+  <textarea id="mensaje-futuro"  rows="10" placeholder="Hola mi yo del futuro espero que te encuentres bien te mando un mensaje deseandote lo mejor y pase lo que pase tu puedes salir adelante y cumplir las metas y sueños que tenemos en mente"></textarea>
+        <button onclick="guardarCarta()">Guardar para mi futuro</button>
+      </form>
+      </section>
+
+
+    <section id="galeria">
+  <h2>Galería de recuerdos</h2>
+  <center>
+  <input type="file" id="inputImagen" accept="imagen/*" multiple>
+
+  <!-- Esta es la ventana emergente que aparecerá al pasar el cursor -->
+  <div class="tooltip-galeria" id="tooltipGaleria"></div>
+</section>
+
+<script>
+// Al cargar la página
+window.onload = function () {
+cargarCarta();
+iniciarContador();
+cargarImagenes();
+};
+
+// Guardar carta al localStorage
+function guardarCarta() {
+const mensaje = document.getElementById('mensaje-futuro').value;
+localStorage.setItem('cartaFuturo', mensaje);
+alert('¡Tu carta ha sido guardada!');
+}
+
+// Cargar carta guardada
+function cargarCarta() {
+const mensajeGuardado = localStorage.getItem('cartaFuturo');
+if (mensajeGuardado) {
+  document.getElementById('mensaje-futuro').value = mensajeGuardado;
+}
+}
+
+// Galería de recuerdos
+const inputImagen = document.getElementById('inputImagen');
+const tooltipGaleria = document.getElementById('tooltipGaleria');
+
+inputImagen.addEventListener('change', function () {
+const archivos = inputImagen.files;
+tooltipGaleria.innerHTML = ""; // Limpia antes de agregar nuevas
+
+for (let i = 0; i < archivos.length; i++) {
+  const archivo = archivos[i];
+  const reader = new FileReader();
+
+  reader.onload = function (e) {
+    const img = document.createElement('img');
+    img.src = e.target.result;
+    tooltipGaleria.appendChild(img);
+  };
+
+  reader.readAsDataURL(archivo);
+}
+});
+
+// Contador de tiempo (ya lo tenías)
+function iniciarContador() {
+const fechaCreacion = new Date(2025, 8, 1, 0, 0, 0);
+
+function actualizarContador() {
+  const ahora = new Date();
+  let diferencia = ahora - fechaCreacion;
+
+  if (isNaN(diferencia) || diferencia < 0) diferencia = 0;
+
+  const segundos = Math.floor(diferencia / 1000);
+  const minutos = Math.floor(segundos / 60);
+  const horas = Math.floor(minutos / 60);
+  const dias = Math.floor(horas / 24);
+
+  const segundosRestantes = segundos % 60;
+  const minutosRestantes = minutos % 60;
+  const horasRestantes = horas % 24;
+
+  const texto = `${dias} días, ${horasRestantes} horas, ${minutosRestantes} min, ${segundosRestantes} seg`;
+
+  const el = document.getElementById("contador");
+  if (el) el.textContent = texto;
+}
+
+actualizarContador();
+setInterval(actualizarContador, 1000);
+}
+</script>
+
+      <p> <span id="contador">El tiempo que a pasado es-</p>
+      </center>
+      <footer>&copy Erick Samuel Jaramillo Cuero 2025 </footer>
+    </body>
+  </html>
